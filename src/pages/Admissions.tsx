@@ -1,11 +1,11 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, FileText, Users, CheckCircle, Clock, DollarSign, GraduationCap, Award, ChevronRight, ChevronLeft, X, Menu } from "lucide-react";
+import { Calendar, FileText, Users, CheckCircle, Clock, DollarSign, GraduationCap, Award, ChevronRight, ChevronLeft, X, Menu, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button-variants";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/texxxxxtarea";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { getSupabaseData, setSupabaseData, subscribeToSupabaseChanges } from "@/lib/supabaseHelpers";
 
@@ -72,6 +72,7 @@ const Admissions = () => {
     phone: "",
     email: ""
   });
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Load pricing and admissions data from Supabase
   useEffect(() => {
@@ -147,6 +148,20 @@ const Admissions = () => {
       unsubscribeAdmissionStatus();
     };
   }, []);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Scroll progress tracking (throttled for performance)
   useEffect(() => {

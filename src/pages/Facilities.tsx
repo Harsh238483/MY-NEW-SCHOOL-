@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { BookOpen, Beaker, Dumbbell, Theater, Cpu, Heart, Coffee, Car } from "lucide-react";
+import { BookOpen, Beaker, Dumbbell, Theater, Cpu, Heart, Coffee, Car, ArrowUp } from "lucide-react";
 import { getSupabaseData, subscribeToSupabaseChanges } from "@/lib/supabaseHelpers";
 
 const iconMap: { [key: string]: any } = {
@@ -26,6 +27,7 @@ interface Stat {
 const Facilities = () => {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [stats, setStats] = useState<Stat[]>([]);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -45,6 +47,25 @@ const Facilities = () => {
       unsubStats();
     };
   }, []);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll button when user has scrolled 400px OR is near the bottom of the page
+      const scrolled = window.scrollY;
+      const threshold = 400;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000;
+      
+      setShowScrollTop(scrolled > threshold || nearBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const loadData = async () => {
     try {
@@ -303,6 +324,22 @@ const Facilities = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
+
+      <Footer />
     </div>
   );
 };

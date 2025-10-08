@@ -120,7 +120,7 @@ const Navigation = () => {
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
       // Reduce animation complexity on mobile
-      document.documentElement.style.setProperty('--animation-duration', '0.1s');
+      document.documentElement.style.setProperty('--animation-duration', '0s');
     }
   }, [performanceMode]);
 
@@ -204,7 +204,7 @@ const Navigation = () => {
         scrolled ? 'glass-header' : 'header-transparent'
       }`}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0, ease: "easeOut" }}
     >
       <div className="container-wide">
         <div className="flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6">
@@ -241,7 +241,7 @@ const Navigation = () => {
               </div>
               <motion.div
                 animate={{ rotate: showDropdown ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0 }}
                 className="hidden lg:block"
               >
                 <ChevronDown className="h-4 w-4 text-muted-foreground group-hover:text-gold transition-colors" />
@@ -255,7 +255,7 @@ const Navigation = () => {
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
+                  transition={{ duration: 0, type: "spring", stiffness: 300 }}
                   className="absolute top-full left-0 mt-2 w-80 bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl overflow-hidden hidden lg:block"
                   onMouseEnter={() => setShowDropdown(true)}
                   onMouseLeave={() => setShowDropdown(false)}
@@ -266,7 +266,7 @@ const Navigation = () => {
                         key={item.path}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
+                        transition={{ delay: index * 0 }}
                       >
                         <Link
                           to={item.path}
@@ -279,6 +279,7 @@ const Navigation = () => {
                         >
                           <motion.div
                             whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ duration: 0 }}
                             className={`p-2 rounded-lg ${
                               location.pathname === item.path
                                 ? "bg-gold text-black"
@@ -301,6 +302,7 @@ const Navigation = () => {
                             <motion.div
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
+                              transition={{ duration: 0 }}
                               className="w-2 h-2 bg-gold rounded-full"
                             />
                           )}
@@ -398,131 +400,89 @@ const Navigation = () => {
               variant="ghost"
               size="sm"
               onClick={togglePerformanceMode}
-              className={`p-2 transition-all duration-300 hidden sm:flex ${
-                performanceMode
-                  ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30 border border-green-500/30'
-                  : 'hover:bg-gold/10 text-muted-foreground hover:text-gold border border-transparent'
-              }`}
-              title={performanceMode ? 'Disable Performance Mode' : 'Enable Performance Mode'}
+              className="p-2"
+              aria-label="Toggle performance mode"
             >
-              <Zap className={`h-5 w-5 transition-all duration-300 ${
-                performanceMode ? 'text-green-400' : 'text-muted-foreground'
-              }`} />
+              {performanceMode ? (
+                <Zap className="h-4 w-4 text-yellow-400" />
+              ) : (
+                <Zap className="h-4 w-4 text-muted-foreground" />
+              )}
             </Button>
 
-            {/* Notification Bell - Always visible */}
+            {/* Notification Bell */}
             <div className="relative" data-notification-container>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowNotifications(!showNotifications)}
-                className="relative p-1 sm:p-2 hover:bg-gold/10 transition-colors"
+                className="p-2 relative"
+                aria-label="Notifications"
               >
-                <Bell className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground hover:text-gold transition-colors" />
+                <Bell className="h-4 w-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 h-4 w-4 sm:h-5 sm:w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                    {unreadCount > 9 ? '9+' : unreadCount}
+                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-[10px] flex items-center justify-center text-white">
+                    {unreadCount}
                   </span>
                 )}
               </Button>
 
-              {/* Notification Dropdown */}
+              {/* Notifications Dropdown */}
               <AnimatePresence>
                 {showNotifications && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                    transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
-                    className="absolute right-0 top-full mt-2 w-72 xs:w-80 sm:w-96 bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl z-50 max-h-96 overflow-hidden"
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0 }}
+                    className="absolute right-0 mt-2 w-80 bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl overflow-hidden z-50"
                   >
                     <div className="p-4 border-b border-border">
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-foreground">School Announcements</h3>
-                        <div className="text-xs text-muted-foreground">
-                          {unreadCount > 0 ? `${unreadCount} new` : 'All read'}
-                        </div>
-                      </div>
+                      <h3 className="font-heading font-bold text-lg">Notifications</h3>
                     </div>
-
-                    <div className="max-h-80 overflow-y-auto">
-                      {notifications.length === 0 ? (
-                        <div className="p-6 text-center text-muted-foreground">
-                          <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                          <p>No announcements</p>
-                        </div>
-                      ) : (
+                    <div className="max-h-96 overflow-y-auto">
+                      {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <motion.div
                             key={notification.id}
-                            initial={{ opacity: 0, x: -10 }}
+                            initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className={`p-4 border-b border-border hover:bg-muted/30 transition-colors cursor-pointer ${
-                              notification.unread ? 'bg-muted/20' : ''
+                            transition={{ duration: 0 }}
+                            className={`p-4 border-b border-border last:border-b-0 hover:bg-muted/10 cursor-pointer ${
+                              notification.unread ? "bg-gold/5" : ""
                             }`}
                             onClick={() => markAsRead(notification.id)}
                           >
                             <div className="flex items-start justify-between">
-                              <div className="flex-1 min-w-0">
+                              <div className="flex-1">
                                 <div className="flex items-center space-x-2 mb-1">
-                                  <h4 className={`text-sm font-medium ${
-                                    notification.unread ? 'text-foreground' : 'text-muted-foreground'
-                                  }`}>
-                                    {notification.title}
-                                  </h4>
+                                  <h4 className="font-semibold text-sm">{notification.title}</h4>
                                   {notification.unread && (
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                                    <span className="h-2 w-2 rounded-full bg-gold"></span>
                                   )}
                                 </div>
-                                <p className="text-xs text-muted-foreground mb-2 line-clamp-2 leading-relaxed">
+                                <p className="text-xs text-muted-foreground mb-2">
                                   {notification.message}
                                 </p>
-                                <div className="flex items-center space-x-2">
-                                  <p className="text-xs font-mono text-muted-foreground bg-muted/50 px-2 py-1 rounded">
-                                    {formatTime(notification.timestamp)}
-                                  </p>
-                                  <span className={`text-xs px-2 py-1 rounded-full ${
-                                    notification.type === 'important' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' :
-                                    notification.type === 'announcement' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
-                                    'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
-                                  }`}>
-                                    {notification.type}
-                                  </span>
-                                </div>
+                                <p className="text-[10px] text-muted-foreground">
+                                  {formatTime(notification.timestamp)}
+                                </p>
                               </div>
-                              {notification.unread && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="h-6 w-6 p-0 ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    markAsRead(notification.id);
-                                  }}
-                                >
-                                  <Eye className="h-3 w-3" />
-                                </Button>
-                              )}
                             </div>
                           </motion.div>
                         ))
+                      ) : (
+                        <div className="p-8 text-center text-muted-foreground">
+                          <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">No notifications</p>
+                        </div>
                       )}
                     </div>
-
-                    {notifications.length > 0 && (
-                      <div className="p-3 border-t border-border bg-muted/20">
-                        <div className="text-center">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-xs text-muted-foreground hover:text-gold"
-                            onClick={() => setShowNotifications(false)}
-                          >
-                            Close Notifications
-                          </Button>
-                        </div>
-                      </div>
-                    )}
+                    <div className="p-3 border-t border-border text-center">
+                      <Button variant="ghost" size="sm" className="text-xs">
+                        View All Notifications
+                      </Button>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -532,177 +492,101 @@ const Navigation = () => {
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden p-1 sm:p-2"
               onClick={() => setIsOpen(!isOpen)}
+              className="p-2 sm:hidden"
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.15 }}
-              className="lg:hidden absolute top-full left-0 w-full overflow-hidden nav-scrolled"
+              transition={{ duration: 0 }}
+              className="sm:hidden border-t border-border bg-background/95 backdrop-blur-xl"
             >
-              <div className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto mobile-nav-scroll">
-                {/* Mobile Dashboard/Sign Up Button - Top of Menu */}
-                <div className="mb-3">
+              <div className="p-4 space-y-1 max-h-[70vh] overflow-y-auto">
+                {navItems.map((item) => (
+                  <motion.div
+                    key={item.path}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0 }}
+                  >
+                    <Link
+                      to={item.path}
+                      className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                        location.pathname === item.path
+                          ? "bg-gold/15 text-gold border border-gold/30"
+                          : "hover:bg-muted/50"
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <item.icon className="h-5 w-5 flex-shrink-0" />
+                      <span className="font-medium">{item.name}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+
+                {/* Mobile Authentication Links */}
+                <div className="pt-4 mt-4 border-t border-border">
+                  <div className="text-xs font-semibold text-gold mb-3 px-3">ACCOUNT</div>
                   {(() => {
                     const teacherAuth = localStorage.getItem("teacherAuth");
                     const studentAuth = localStorage.getItem("studentAuth");
 
                     if (teacherAuth) {
                       return (
-                        <Link to="/teacher-dashboard">
-                          <Button
-                            variant="outline"
-                            className="w-full bg-gradient-to-r from-gold/10 to-yellow-500/10 hover:from-gold/20 hover:to-yellow-500/20 border-gold/30 text-gold hover:text-gold/80 transition-all duration-200 text-sm"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            Teacher Dashboard
-                          </Button>
+                        <Link
+                          to="/teacher-dashboard"
+                          className="flex items-center space-x-3 p-3 rounded-lg transition-colors hover:bg-muted/50"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <Users className="h-5 w-5" />
+                          <div>
+                            <div className="font-medium">Teacher Dashboard</div>
+                            <div className="text-xs text-muted-foreground">Access your dashboard</div>
+                          </div>
                         </Link>
                       );
                     }
 
                     if (studentAuth) {
                       return (
-                        <Link to="/student-dashboard">
-                          <Button
-                            variant="outline"
-                            className="w-full bg-gradient-to-r from-royal/10 to-gold/10 hover:from-royal/20 hover:to-gold/20 border-royal/30 text-royal hover:text-royal/80 transition-all duration-200 text-sm"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            Student Dashboard
-                          </Button>
+                        <Link
+                          to="/student-dashboard"
+                          className="flex items-center space-x-3 p-3 rounded-lg transition-colors hover:bg-muted/50"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <GraduationCap className="h-5 w-5" />
+                          <div>
+                            <div className="font-medium">Student Dashboard</div>
+                            <div className="text-xs text-muted-foreground">Access your dashboard</div>
+                          </div>
                         </Link>
                       );
                     }
 
-                    // Show Sign Up button if not logged in
                     return (
                       <Link
                         to="/auth"
-                        className="w-full flex justify-center items-center space-x-2 px-3 py-2 rounded-lg bg-gradient-to-r from-gold to-yellow-500 text-black font-medium hover:from-gold/90 hover:to-yellow-500/90 transition-all duration-200 text-sm"
+                        className="flex items-center space-x-3 p-3 rounded-lg transition-colors hover:bg-muted/50"
                         onClick={() => setIsOpen(false)}
                       >
-                        <Users className="h-4 w-4" />
-                        <span>Sign Up</span>
+                        <LogIn className="h-5 w-5" />
+                        <div>
+                          <div className="font-medium">Sign In</div>
+                          <div className="text-xs text-muted-foreground">Access your account</div>
+                        </div>
                       </Link>
                     );
                   })()}
-                </div>
-
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.path}
-                    initial={performanceMode ? {} : { opacity: 0, x: -10 }}
-                    animate={performanceMode ? {} : { opacity: 1, x: 0 }}
-                    transition={performanceMode ? {} : { delay: index * 0.02, duration: 0.1 }}
-                  >
-                    <Link
-                      to={item.path}
-                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-all duration-200 font-medium text-sm ${
-                        location.pathname === item.path
-                          ? "text-gold bg-gold/10 border border-gold/30"
-                          : "text-foreground hover:text-gold hover:bg-gold/5"
-                      }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      <div>
-                        <div>{item.name}</div>
-                        <div className="text-xs text-muted-foreground">{item.description}</div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-
-                {/* Additional Navigation Items for Footer Pages */}
-                <div className="border-t border-border pt-3 mt-3">
-                  <div className="text-xs font-semibold text-gold mb-2 px-3">PROGRAMS</div>
-                  {[
-                    { name: "Undergraduate", path: "/undergraduate", icon: GraduationCap },
-                    { name: "Graduate", path: "/graduate", icon: GraduationCap },
-                    { name: "PhD Programs", path: "/phd-programs", icon: GraduationCap },
-                    { name: "Online Learning", path: "/online-learning", icon: BookOpen }
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.path}
-                      initial={performanceMode ? {} : { opacity: 0, x: -10 }}
-                      animate={performanceMode ? {} : { opacity: 1, x: 0 }}
-                      transition={performanceMode ? {} : { delay: (navItems.length + index) * 0.02, duration: 0.1 }}
-                    >
-                      <Link
-                        to={item.path}
-                        className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-all duration-200 font-medium text-xs ${
-                          location.pathname === item.path
-                            ? "text-gold bg-gold/10 border border-gold/30"
-                            : "text-muted-foreground hover:text-gold hover:bg-gold/5"
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <item.icon className="h-3.5 w-3.5" />
-                        <div>{item.name}</div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="border-t border-border pt-3 mt-3">
-                  <div className="text-xs font-semibold text-gold mb-2 px-3">RESOURCES</div>
-                  {[
-                    { name: "Faculty", path: "/our-teachers", icon: Users },
-                    { name: "Alumni Network", path: "/alumni-network", icon: Users },
-                    { name: "Library", path: "/library", icon: BookOpen },
-                    { name: "Career Services", path: "/career-services", icon: Building }
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.path}
-                      initial={performanceMode ? {} : { opacity: 0, x: -10 }}
-                      animate={performanceMode ? {} : { opacity: 1, x: 0 }}
-                      transition={performanceMode ? {} : { delay: (navItems.length + 4 + index) * 0.02, duration: 0.1 }}
-                    >
-                      <Link
-                        to={item.path}
-                        className={`flex items-center space-x-3 px-3 py-1.5 rounded-lg transition-all duration-200 font-medium text-xs ${
-                          location.pathname === item.path
-                            ? "text-gold bg-gold/10 border border-gold/30"
-                            : "text-muted-foreground hover:text-gold hover:bg-gold/5"
-                        }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <item.icon className="h-3.5 w-3.5" />
-                        <div>{item.name}</div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Mobile Performance Mode Toggle */}
-                <div className="border-t border-border pt-3 mt-3">
-                  <Button
-                    variant="ghost"
-                    onClick={togglePerformanceMode}
-                    className={`w-full flex items-center justify-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm ${
-                      performanceMode
-                        ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                        : 'hover:bg-gold/10 text-muted-foreground hover:text-gold'
-                    }`}
-                  >
-                    <Zap className={`h-4 w-4 ${
-                      performanceMode ? 'text-green-400' : 'text-muted-foreground'
-                    }`} />
-                    <span className="font-medium">
-                      {performanceMode ? 'Performance Mode: ON' : 'Performance Mode: OFF'}
-                    </span>
-                  </Button>
                 </div>
               </div>
             </motion.div>

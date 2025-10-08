@@ -1,21 +1,44 @@
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Building } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, User, Building, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button-variants";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SubscriptionForm from "@/components/SubscriptionForm";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    class: "",
     subject: "",
     message: ""
   });
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll button when user has scrolled 400px OR is near the bottom of the page
+      const scrolled = window.scrollY;
+      const threshold = 400;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000;
+      
+      setShowScrollTop(scrolled > threshold || nearBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const contactInfo = [
     {
@@ -214,17 +237,37 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <div className="relative">
-                      <MessageSquare className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        className="pl-10 transition-all duration-300 focus:scale-105"
-                      />
-                    </div>
+                    <Label htmlFor="class">Class/Grade</Label>
+                    <select
+                      id="class"
+                      name="class"
+                      value={formData.class}
+                      onChange={(e) => setFormData({...formData, class: e.target.value})}
+                      className="w-full p-2 border border-border rounded-md bg-background"
+                    >
+                      <option value="">Select Class</option>
+                      {[...Array(12)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject *</Label>
+                  <div className="relative">
+                    <MessageSquare className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      className="pl-10 transition-all duration-300 focus:scale-105"
+                      placeholder="What is this regarding?"
+                      required
+                    />
                   </div>
                 </div>
 
@@ -261,6 +304,15 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
               className="space-y-8"
             >
+              {/* Subscription Form */}
+              <div className="card-3d p-8">
+                <h3 className="text-2xl font-heading font-bold mb-6">Stay Updated</h3>
+                <p className="text-muted-foreground mb-4">
+                  Subscribe to our newsletter and we'll notify you about our new updates.
+                </p>
+                <SubscriptionForm />
+              </div>
+
               {/* Interactive Map Placeholder */}
               <div className="card-3d p-8">
                 <h3 className="text-2xl font-heading font-bold mb-6">Our Location</h3>
@@ -304,28 +356,21 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.6 }}
-            className="text-center bg-gradient-to-r from-royal/10 via-crimson/5 to-royal/10 p-16 rounded-2xl border border-border cursor-pointer"
-          >
-            <h3 className="text-4xl font-heading font-bold mb-6">Frequently Asked Questions</h3>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Have a question? Check our comprehensive FAQ section for quick answers to common inquiries.
-            </p>
-            <Link to="/faq">
-              <Button variant="gold" size="xl">
-                View FAQ
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
+
+      <Footer />
     </div>
   );
 };

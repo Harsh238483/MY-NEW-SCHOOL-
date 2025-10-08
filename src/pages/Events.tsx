@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Clock, Users, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, Clock, Users, ArrowRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getSupabaseData } from "@/lib/supabaseHelpers";
 
@@ -33,10 +34,25 @@ const Events = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [loading, setLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     loadData();
   }, []);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const loadData = async () => {
     try {
@@ -117,7 +133,7 @@ const Events = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex flex-wrap justify-center gap-3 mb-12"
           >
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
@@ -125,10 +141,10 @@ const Events = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory("all")}
-              className={`px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 ${
+              className={`px-5 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 border-2 ${
                 selectedCategory === "all" 
-                  ? "bg-gradient-to-r from-royal to-gold text-white" 
-                  : "bg-card text-foreground border border-border"
+                  ? "bg-gradient-to-r from-royal to-gold text-white border-gold" 
+                  : "bg-card text-foreground border-border hover:border-gold/50"
               }`}
             >
               All Events
@@ -146,10 +162,10 @@ const Events = () => {
                   backgroundColor: selectedCategory === category.name ? category.color : undefined,
                   color: selectedCategory === category.name ? "white" : undefined
                 }}
-                className={`px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 border-2 ${
                   selectedCategory === category.name 
-                    ? "" 
-                    : "bg-card text-foreground border border-border"
+                    ? "border-gold" 
+                    : "bg-card text-foreground border-border hover:border-gold/50"
                 }`}
               >
                 {category.name}
@@ -335,37 +351,21 @@ const Events = () => {
         </>
       )}
 
-      {/* Newsletter Signup */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.6 }}
-            className="text-center bg-gradient-to-r from-royal/10 via-crimson/5 to-royal/10 p-16 rounded-2xl border border-border"
-          >
-            <h3 className="text-4xl font-heading font-bold mb-6">Stay Updated</h3>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Subscribe to our newsletter to receive updates about upcoming events, academic achievements, and school news.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-gold"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-gold px-6 py-3 font-semibold rounded-lg"
-              >
-                Subscribe
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
+
+      <Footer />
     </div>
   );
 };

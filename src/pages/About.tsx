@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
-import { Shield, Target, Eye, Heart, Users, Award, BookOpen, Globe, ArrowLeft } from "lucide-react";
+import { Shield, Target, Eye, Heart, Users, Award, BookOpen, Globe, ArrowLeft, ArrowUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button-variants";
@@ -54,6 +54,7 @@ interface AboutPageData {
 const About = () => {
   const navigate = useNavigate();
   const [aboutData, setAboutData] = useState<AboutPageData | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Load data from localStorage (managed by Principal Dashboard)
   useEffect(() => {
@@ -69,6 +70,25 @@ const About = () => {
       setAboutData(getDefaultData());
     }
   }, []);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll button when user has scrolled 400px OR is near the bottom of the page
+      const scrolled = window.scrollY;
+      const threshold = 400;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000;
+      
+      setShowScrollTop(scrolled > threshold || nearBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Default data function
   const getDefaultData = (): AboutPageData => ({
@@ -199,9 +219,6 @@ const About = () => {
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-0 mb-4">
               {aboutData.heroSubtitle}
             </p>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
-              {aboutData.heroDescription}
-            </p>
           </motion.div>
         </div>
       </section>
@@ -286,16 +303,16 @@ const About = () => {
             <p className="text-xl text-muted-foreground">Numbers that reflect our commitment to excellence</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={achievement.label}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 whileHover={{ 
-                  scale: 1.1, 
-                  y: -10,
-                  rotateY: 15 
+                  scale: 1.05, 
+                  y: -5,
+                  rotateY: 5 
                 }}
                 transition={{ 
                   duration: 0.3, 
@@ -303,26 +320,26 @@ const About = () => {
                   type: "spring",
                   stiffness: 300
                 }}
-                className="card-3d p-8 text-center group cursor-pointer"
+                className="card-3d p-6 text-center group cursor-pointer"
               >
-                <div className="flex flex-col items-center space-y-4">
+                <div className="flex flex-col items-center space-y-3">
                   <motion.div
-                    whileHover={{ rotate: 360, scale: 1.2 }}
+                    whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.6 }}
-                    className="w-16 h-16 rounded-full bg-gradient-to-br from-gold/20 to-gold/40 flex items-center justify-center animate-pulse-slow"
+                    className="w-12 h-12 rounded-full bg-gradient-to-br from-gold/20 to-gold/40 flex items-center justify-center"
                   >
-                    <achievement.icon className="h-8 w-8 text-gold" />
+                    <achievement.icon className="h-6 w-6 text-gold" />
                   </motion.div>
-                  <div className="space-y-2">
+                  <div className="space-y-1">
                     <motion.div
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
                       transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 300 }}
-                      className="text-4xl font-heading font-bold text-gradient-gold"
+                      className="text-2xl sm:text-3xl font-heading font-bold text-gradient-gold"
                     >
                       {achievement.value}
                     </motion.div>
-                    <p className="text-muted-foreground text-lg">{achievement.label}</p>
+                    <p className="text-muted-foreground text-sm sm:text-base">{achievement.label}</p>
                   </div>
                 </div>
               </motion.div>
@@ -466,6 +483,20 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
 
       <Footer />
     </div>

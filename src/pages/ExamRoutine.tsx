@@ -6,7 +6,8 @@ import {
   Filter,
   GraduationCap,
   Info,
-  AlertCircle
+  AlertCircle,
+  ArrowUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
@@ -22,12 +23,33 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 
 const ExamRoutinePage = () => {
   const navigate = useNavigate();
   const [routines, setRoutines] = useState<ExamRoutine[]>([]);
   const [filteredRoutines, setFilteredRoutines] = useState<ExamRoutine[]>([]);
   const [selectedClass, setSelectedClass] = useState<string>("all");
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll button when user has scrolled 400px OR is near the bottom of the page
+      const scrolled = window.scrollY;
+      const threshold = 400;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000;
+      
+      setShowScrollTop(scrolled > threshold || nearBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const fetchRoutines = async () => {
@@ -246,6 +268,20 @@ const ExamRoutinePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
 
       <Footer />
     </div>

@@ -78,7 +78,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <About />
           </motion.div>
@@ -88,7 +88,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Academics />
           </motion.div>
@@ -98,7 +98,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CurriculumGuide />
           </motion.div>
@@ -108,7 +108,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Facilities />
           </motion.div>
@@ -118,7 +118,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Admissions />
           </motion.div>
@@ -128,7 +128,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Gallery />
           </motion.div>
@@ -138,7 +138,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <TopScorers />
           </motion.div>
@@ -148,7 +148,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <TopScorersLearnMore />
           </motion.div>
@@ -158,7 +158,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <StudentProfile />
           </motion.div>
@@ -168,7 +168,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Events />
           </motion.div>
@@ -178,7 +178,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <EventDetail />
           </motion.div>
@@ -188,7 +188,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <YearlyBook />
           </motion.div>
@@ -198,7 +198,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <ExamRoutine />
           </motion.div>
@@ -208,7 +208,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Contact />
           </motion.div>
@@ -218,7 +218,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <PrivacyPolicy />
           </motion.div>
@@ -228,7 +228,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <TermsOfService />
           </motion.div>
@@ -238,7 +238,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Sitemap />
           </motion.div>
@@ -248,7 +248,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CookiePolicy />
           </motion.div>
@@ -258,7 +258,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <FAQ />
           </motion.div>
@@ -268,7 +268,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <PrimaryEducation />
           </motion.div>
@@ -278,7 +278,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <SecondaryEducation />
           </motion.div>
@@ -288,7 +288,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <HigherSecondary />
           </motion.div>
@@ -298,7 +298,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <ScienceStream />
           </motion.div>
@@ -308,7 +308,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CommerceStream />
           </motion.div>
@@ -318,7 +318,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <ArtsStream />
           </motion.div>
@@ -328,7 +328,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <OurTeachers />
           </motion.div>
@@ -338,7 +338,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <TeacherProfile />
           </motion.div>
@@ -348,7 +348,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <AlumniNetwork />
           </motion.div>
@@ -358,7 +358,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Library />
           </motion.div>
@@ -368,7 +368,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CareerServices />
           </motion.div>
@@ -378,7 +378,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Undergraduate />
           </motion.div>
@@ -388,7 +388,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Graduate />
           </motion.div>
@@ -398,7 +398,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <PhdPrograms />
           </motion.div>
@@ -408,7 +408,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <OnlineLearning />
           </motion.div>
@@ -418,7 +418,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <PrincipalLogin />
           </motion.div>
@@ -428,19 +428,18 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <PrincipalDashboard />
           </motion.div>
         } />
-        {/* Alias: support underscore URL to avoid blank page */}
         <Route path="/principal_dashboard" element={<Navigate to="/principal-dashboard" replace />} />
         <Route path="/teacher" element={
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <TeacherLogin />
           </motion.div>
@@ -450,7 +449,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <AuthLanding />
           </motion.div>
@@ -464,13 +463,12 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <TeacherDashboard />
             </motion.div>
           </ProtectedRoute>
         } />
-        {/* Alias: common misspelling should go to teacher login */}
         <Route path="/teacher-dashbored" element={<Navigate to="/teacher" replace />} />
         <Route path="/teacher-profile-settings" element={
           <ProtectedRoute 
@@ -481,7 +479,7 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <TeacherProfileSettings />
             </motion.div>
@@ -492,7 +490,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <StudentAuth />
           </motion.div>
@@ -506,7 +504,7 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <StudentDashboard />
             </motion.div>
@@ -521,7 +519,7 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <StudentNotifications />
             </motion.div>
@@ -536,7 +534,7 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <StudentTimetable />
             </motion.div>
@@ -551,7 +549,7 @@ function AnimatedRoutes() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0 }}
             >
               <StudentMyProfile />
             </motion.div>
@@ -562,7 +560,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <StudentProfileSettings />
           </motion.div>
@@ -572,7 +570,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CreateTeacherID />
           </motion.div>
@@ -582,7 +580,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <ManageTeacherID />
           </motion.div>
@@ -592,7 +590,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <ManageTeachers />
           </motion.div>
@@ -602,7 +600,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <Courses />
           </motion.div>
@@ -612,7 +610,7 @@ function AnimatedRoutes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <CoursesManagement />
           </motion.div>
@@ -623,13 +621,12 @@ function AnimatedRoutes() {
             <PrincipalAudioRoute />
           } 
         />
-        {/* Lazy loading example route */}
         <Route path="/lazy-example" element={
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0 }}
           >
             <LazyLoadExample />
           </motion.div>
@@ -641,43 +638,134 @@ function AnimatedRoutes() {
 }
 
 const App = () => {
-  // Validate any existing teacher session against principal-provisioned list
-  // Enhanced validation to prevent unnecessary logouts
+  // ⚡ PERFORMANCE OPTIMIZATION - Runs once on app load
+  useEffect(() => {
+    // 1. DNS Prefetch & Preconnect for faster loading
+    const optimizeConnections = () => {
+      const links = [
+        { rel: 'dns-prefetch', href: '//fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+      ];
+      
+      links.forEach(({ rel, href, crossOrigin }) => {
+        const link = document.createElement('link');
+        link.rel = rel;
+        link.href = href;
+        if (crossOrigin) link.crossOrigin = crossOrigin;
+        document.head.appendChild(link);
+      });
+    };
+
+    // 2. Optimize images and fonts loading
+    const optimizeAssets = () => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        /* Font optimization - swap prevents FOIT */
+        * { 
+          font-display: swap; 
+        }
+        
+        /* Lazy load all images by default */
+        img:not([loading]) { 
+          loading: lazy; 
+        }
+        
+        /* Smooth scrolling */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    };
+
+    // 3. Viewport height fix for mobile devices
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    // 4. Prefetch important routes on idle
+    const prefetchRoutes = () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          // Prefetch commonly visited pages
+          const routes = ['/about', '/admissions', '/contact'];
+          routes.forEach(route => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = route;
+            document.head.appendChild(link);
+          });
+        });
+      }
+    };
+
+    // 5. Performance monitoring (optional - remove in production)
+    const logPerformance = () => {
+      if (window.performance && window.performance.timing) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const perfData = window.performance.timing;
+            const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+            console.log(`⚡ Page loaded in: ${pageLoadTime}ms`);
+          }, 0);
+        });
+      }
+    };
+
+    // Run optimizations
+    optimizeConnections();
+    optimizeAssets();
+    setViewportHeight();
+    prefetchRoutes();
+    logPerformance();
+
+    // Resize listener for viewport height
+    window.addEventListener('resize', setViewportHeight);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', setViewportHeight);
+    };
+  }, []);
+
+  // Validate teacher session (existing code)
   useEffect(() => {
     try {
       const teacherAuth = localStorage.getItem("teacherAuth");
       const email = (localStorage.getItem("teacherEmail") || "").trim().toLowerCase();
       const name = (localStorage.getItem("teacherName") || "").trim().toLowerCase();
 
-      // Only validate if we have authentication data
       if (teacherAuth === "true" && (email || name)) {
         const raw = localStorage.getItem("royal-academy-auth-teachers") || "[]";
         const teachers = JSON.parse(raw);
         
-        // Only perform validation if we have a populated teachers list
-        // This prevents clearing authentication when the list is temporarily empty
         if (teachers.length > 0) {
           const exists = (teachers || []).some((t: any) => {
             const tEmail = ((t.email || "") + "").trim().toLowerCase();
             const tName = ((t.username || t.name || "") + "").trim().toLowerCase();
-            // Consider a session valid only if email or name matches a provisioned record
             return (email && tEmail === email) || (name && tName === name);
           });
 
-          // Only clear authentication if we're certain it's invalid
           if (!exists) {
-            // Clear any stale or seeded session (e.g., old John Smith test data)
             localStorage.removeItem("teacherAuth");
             localStorage.removeItem("teacherEmail");
             localStorage.removeItem("teacherName");
             localStorage.removeItem("teacherSubject");
           }
         }
-        // If teachers list is empty, we don't clear authentication
-        // This preserves sessions when there might be temporary data loading issues
       }
     } catch (error) {
-      // If there's an error parsing the teachers list, don't clear authentication
       console.warn("Error validating teacher session, preserving authentication:", error);
     }
   }, []);

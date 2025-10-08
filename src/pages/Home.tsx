@@ -20,6 +20,109 @@ import CookieConsentBanner from "@/components/CookieConsentBanner";
 import { getSupabaseData } from "@/lib/supabaseHelpers";
 import { motion } from "framer-motion";
 
+// Formspree form component
+function NewsletterForm() {
+  const [state, setState] = useState({
+    email: '',
+    message: '',
+    isSubmitting: false,
+    succeeded: false,
+    errors: [] as string[]
+  });
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateEmail(state.email)) {
+      setState(prev => ({ ...prev, errors: ['Please enter a valid email address'] }));
+      return;
+    }
+
+    setState(prev => ({ ...prev, isSubmitting: true, errors: [] }));
+
+    try {
+      const formData = new FormData();
+      formData.append('email', state.email);
+      formData.append('message', state.message);
+
+      // Using the Formspree endpoint you provided
+      const response = await fetch('https://formspree.io/f/mgvzrqwa', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setState({
+          email: '',
+          message: '',
+          isSubmitting: false,
+          succeeded: true,
+          errors: []
+        });
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setState(prev => ({ ...prev, succeeded: false }));
+        }, 5000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      setState(prev => ({
+        ...prev,
+        isSubmitting: false,
+        errors: ['Failed to subscribe. Please try again.']
+      }));
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setState(prev => ({ ...prev, [name]: value }));
+  };
+
+  if (state.succeeded) {
+    return <p className="text-green-600 font-medium">Thanks for subscribing us! we'll notify you about our new update THANKS!</p>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+      <div className="flex-1 space-y-2">
+        <input
+          id="email"
+          type="email"
+          name="email"
+          value={state.email}
+          onChange={handleInputChange}
+          placeholder="Enter your email"
+          className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-gold text-black dark:text-foreground"
+          required
+        />
+        {state.errors.length > 0 && (
+          <p className="text-red-500 text-sm">{state.errors[0]}</p>
+        )}
+      </div>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        type="submit"
+        disabled={state.isSubmitting}
+        className="btn-gold px-6 py-3 font-semibold rounded-lg text-black whitespace-nowrap"
+      >
+        {state.isSubmitting ? 'Subscribing...' : 'Subscribe'}
+      </motion.button>
+    </form>
+  );
+}
+
 interface Event {
   id: string;
   title: string;
@@ -183,20 +286,7 @@ const Home = () => {
             <p className="text-xl text-black dark:text-muted-foreground mb-8 max-w-3xl mx-auto">
               Subscribe to our newsletter to receive updates about upcoming events, academic achievements, and school news.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-gold text-black dark:text-foreground"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-gold px-6 py-3 font-semibold rounded-lg text-black"
-              >
-                Subscribe
-              </motion.button>
-            </div>
+            <NewsletterForm />
           </motion.div>
         </div>
       </section>

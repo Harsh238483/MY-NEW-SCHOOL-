@@ -2,13 +2,16 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Trophy, Medal, Award, Star, GraduationCap, BookOpen, Target, TrendingUp, Crown, Zap, ArrowRight } from "lucide-react";
+import { Trophy, Medal, Award, Star, GraduationCap, BookOpen, Target, TrendingUp, Crown, Zap, ArrowRight, Plus, X, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const TopScorers = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedYear, setSelectedYear] = useState("2024");
+  const [showCategoryFilter, setShowCategoryFilter] = useState(false);
+  const [showYearFilter, setShowYearFilter] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [categories, setCategories] = useState([
     { id: "all", name: "All Subjects", icon: BookOpen },
     { id: "science", name: "Science", icon: Zap },
@@ -42,6 +45,25 @@ const TopScorers = () => {
       setTopScorers(JSON.parse(savedStudents));
     }
   }, []);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll button when user has scrolled 400px OR is near the bottom of the page
+      const scrolled = window.scrollY;
+      const threshold = 400;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000;
+      
+      setShowScrollTop(scrolled > threshold || nearBottom);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const [topScorers, setTopScorers] = useState([
     // Default data - will be replaced by localStorage data
@@ -185,97 +207,38 @@ const TopScorers = () => {
     }
   };
 
+  // Get the name of the selected category for display
+  const getSelectedCategoryName = () => {
+    const category = categories.find(cat => cat.id === selectedCategory);
+    return category ? category.name : "All Subjects";
+  };
+
+  // Get the name of the selected year for display
+  const getSelectedYearName = () => {
+    const year = years.find(y => y.id === selectedYear);
+    return year ? year.name : "2024";
+  };
+
   return (
     <div className="min-h-screen">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-royal/20 via-background to-gold/20"></div>
-        
-        {/* Floating Achievement Icons */}
-        <div className="absolute inset-0 overflow-hidden hidden sm:block">
-          <motion.div
-            animate={{ 
-              y: [0, -20, 0],
-              rotate: [0, 5, 0]
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-20 right-20 text-gold/20"
-          >
-            <Trophy className="h-24 w-24" />
-          </motion.div>
-          <motion.div
-            animate={{ 
-              y: [0, 15, 0],
-              rotate: [0, -3, 0]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-32 left-16 text-crimson/20"
-          >
-            <GraduationCap className="h-20 w-20" />
-          </motion.div>
-          <motion.div
-            animate={{ 
-              y: [0, -10, 0],
-              x: [0, 5, 0]
-            }}
-            transition={{ 
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-1/2 left-10 text-royal/20"
-          >
-            <Star className="h-16 w-16" />
-          </motion.div>
-        </div>
-        
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-royal/20 via-background to-crimson/20"></div>
         <div className="container-wide relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="inline-flex items-center space-x-2 mb-4"
-            >
-              <Trophy className="h-8 w-8 sm:h-12 sm:w-12 text-gold animate-bounce" />
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold">
-                Top <span className="text-gradient-gold">Scorers</span>
-              </h1>
-              <Trophy className="h-8 w-8 sm:h-12 sm:w-12 text-gold animate-bounce" style={{ animationDelay: '0.5s' }} />
-            </motion.div>
-            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-6 px-4">
-              Celebrating academic excellence and outstanding achievements of our brilliant students at Royal Academy.
+            <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
+              Top <span className="text-gradient-gold">Scorers</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Celebrating the outstanding academic achievements of our exceptional students
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 px-4">
-              <Link to="/top-scorers/learn-more">
-                <Button className="bg-gradient-to-r from-gold to-yellow-500 hover:from-gold/80 hover:to-yellow-500/80 text-black px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-full sm:w-auto">
-                  <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                  Learn More About Our Programs
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
-                </Button>
-              </Link>
-              <Link to="/admissions">
-                <Button variant="outline" className="border-gold/30 text-gold hover:text-gold/80 hover:bg-gold/10 px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-xl transition-all duration-300 w-full sm:w-auto">
-                  <Trophy className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                  Apply Now
-                </Button>
-              </Link>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -285,55 +248,121 @@ const TopScorers = () => {
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-8">
             
-            {/* Category Filter */}
+            {/* Category Filter - Mobile Optimized */}
             <div className="flex flex-col items-center w-full">
-              <h3 className="text-base sm:text-lg font-heading font-semibold mb-3 text-gradient-gold">Filter by Subject</h3>
-              <div className="flex flex-wrap justify-center gap-2 w-full">
-                {categories.map((category, index) => (
-                  <motion.button
-                    key={category.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`flex items-center space-x-1 sm:space-x-2 px-3 py-2 sm:px-4 sm:py-2 rounded-full font-medium transition-all duration-300 text-xs sm:text-sm ${
-                      selectedCategory === category.id
-                        ? "bg-gold text-black shadow-lg"
-                        : "bg-card/50 hover:bg-card text-muted-foreground hover:text-foreground border border-border"
-                    }`}
-                  >
-                    <category.icon className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span className="truncate max-w-[100px] sm:max-w-none">{category.name}</span>
-                  </motion.button>
-                ))}
+              <div className="flex items-center justify-between w-full mb-3">
+                <h3 className="text-base sm:text-lg font-heading font-semibold text-gradient-gold">Filter by Subject</h3>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowCategoryFilter(!showCategoryFilter)}
+                  className="border-2 border-gold/30 text-gold hover:text-gold/80 hover:bg-gold/10"
+                >
+                  {showCategoryFilter ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                </Button>
               </div>
+              
+              {/* Selected Category Display */}
+              <div className="w-full mb-2">
+                <div className="px-4 py-2 bg-card/50 border-2 border-border rounded-lg text-foreground font-medium text-center">
+                  {getSelectedCategoryName()}
+                </div>
+              </div>
+              
+              {/* Category Options - Collapsible */}
+              <AnimatePresence>
+                {showCategoryFilter && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="w-full overflow-hidden"
+                  >
+                    <div className="grid grid-cols-2 gap-2 w-full mt-2">
+                      {categories.map((category, index) => (
+                        <motion.button
+                          key={category.id}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ delay: index * 0.05 }}
+                          onClick={() => {
+                            setSelectedCategory(category.id);
+                            setShowCategoryFilter(false);
+                          }}
+                          className={`flex items-center space-x-2 p-3 rounded-lg font-medium transition-all duration-300 text-sm ${
+                            selectedCategory === category.id
+                              ? "bg-gold text-black shadow-lg border-2 border-gold"
+                              : "bg-card/50 hover:bg-card text-muted-foreground hover:text-foreground border-2 border-border hover:border-gold/50"
+                          }`}
+                        >
+                          <category.icon className="h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">{category.name}</span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Year Filter */}
+            {/* Year Filter - Mobile Optimized */}
             <div className="flex flex-col items-center w-full mt-4 lg:mt-0">
-              <h3 className="text-base sm:text-lg font-heading font-semibold mb-3 text-gradient-gold">Academic Year</h3>
-              <div className="flex flex-wrap justify-center gap-2">
-                {years.map((year, index) => (
-                  <motion.button
-                    key={year.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => setSelectedYear(year.id)}
-                    className={`px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
-                      selectedYear === year.id
-                        ? "bg-gradient-to-r from-gold to-yellow-500 text-black shadow-lg"
-                        : "bg-card/50 hover:bg-card text-muted-foreground hover:text-foreground border border-border"
-                    }`}
-                  >
-                    {year.name}
-                  </motion.button>
-                ))}
+              <div className="flex items-center justify-between w-full mb-3">
+                <h3 className="text-base sm:text-lg font-heading font-semibold text-gradient-gold">Academic Year</h3>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowYearFilter(!showYearFilter)}
+                  className="border-2 border-gold/30 text-gold hover:text-gold/80 hover:bg-gold/10"
+                >
+                  {showYearFilter ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                </Button>
               </div>
+              
+              {/* Selected Year Display */}
+              <div className="w-full mb-2">
+                <div className="px-4 py-2 bg-card/50 border-2 border-border rounded-lg text-foreground font-medium text-center">
+                  {getSelectedYearName()}
+                </div>
+              </div>
+              
+              {/* Year Options - Collapsible */}
+              <AnimatePresence>
+                {showYearFilter && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="w-full overflow-hidden"
+                  >
+                    <div className="grid grid-cols-3 gap-2 w-full mt-2">
+                      {years.map((year, index) => (
+                        <motion.button
+                          key={year.id}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ delay: index * 0.05 }}
+                          onClick={() => {
+                            setSelectedYear(year.id);
+                            setShowYearFilter(false);
+                          }}
+                          className={`p-3 rounded-lg font-semibold transition-all duration-300 text-sm ${
+                            selectedYear === year.id
+                              ? "bg-gradient-to-r from-gold to-yellow-500 text-black shadow-lg border-2 border-gold"
+                              : "bg-card/50 hover:bg-card text-muted-foreground hover:text-foreground border-2 border-border hover:border-gold/50"
+                          }`}
+                        >
+                          {year.name}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -467,6 +496,20 @@ const TopScorers = () => {
           )}
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gold hover:bg-gold/90 text-black shadow-lg hover:shadow-xl transition-all duration-300"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
+      )}
 
       <Footer />
     </div>
