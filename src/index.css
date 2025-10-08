@@ -968,6 +968,60 @@
     max-width: 150px !important;
   }
   
+  /* Notification dropdown specific fixes */
+  .notification-dropdown {
+    max-width: calc(100vw - 3rem) !important;
+    border-radius: 0.5rem !important; /* Smaller border radius */
+    right: 0 !important;
+    left: auto !important;
+  }
+  
+  /* Teacher dashboard notification dropdown */
+  .teacher-notification-dropdown {
+    max-width: calc(100vw - 2rem) !important;
+    border-radius: 0.5rem !important;
+  }
+  
+  .notification-title {
+    font-size: 0.8125rem !important; /* 13px */
+    line-height: 1.3 !important;
+  }
+  
+  .notification-message {
+    font-size: 0.75rem !important; /* 12px */
+    line-height: 1.3 !important;
+  }
+  
+  .notification-time {
+    font-size: 0.6875rem !important; /* 11px */
+  }
+  
+  /* Reduce padding on small screens */
+  .p-3 {
+    padding: 0.75rem !important;
+  }
+  
+  .p-2 {
+    padding: 0.5rem !important;
+  }
+  
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+  
+  .p-8 {
+    padding: 1rem !important;
+  }
+  
+  /* Reduce border width */
+  .border {
+    border-width: 0.5px !important;
+  }
+  
   /* Hero section fixes */
   .text-3xl {
     font-size: 1.625rem !important; /* 26px instead of 30px */
@@ -1020,14 +1074,6 @@
   
   .mt-6 {
     margin-top: 1rem !important;
-  }
-  
-  .p-6 {
-    padding: 1rem !important;
-  }
-  
-  .p-4 {
-    padding: 0.75rem !important;
   }
   
   .px-8 {
@@ -1106,20 +1152,8 @@
     font-size: 1.5rem !important;
   }
   
-  .p-8 {
-    padding: 1rem !important;
-  }
-  
-  .p-6 {
-    padding: 1rem !important;
-  }
-  
   .mb-16 {
     margin-bottom: 2rem !important;
-  }
-  
-  .mb-6 {
-    margin-bottom: 1rem !important;
   }
   
   .gap-8 {

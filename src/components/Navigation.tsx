@@ -435,12 +435,12 @@ const Navigation = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0 }}
-                    className="absolute right-0 mt-2 w-80 bg-background/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl overflow-hidden z-50"
+                    className="absolute right-0 mt-2 w-[calc(100vw-6rem)] sm:w-64 notification-dropdown bg-background/95 backdrop-blur-xl border border-border rounded-xl shadow-2xl overflow-hidden z-50"
                   >
-                    <div className="p-4 border-b border-border">
-                      <h3 className="font-heading font-bold text-lg">Notifications</h3>
+                    <div className="p-3 border-b border-border">
+                      <h3 className="font-heading font-bold text-base sm:text-lg">Notifications</h3>
                     </div>
-                    <div className="max-h-96 overflow-y-auto">
+                    <div className="max-h-80 sm:max-h-96 overflow-y-auto">
                       {notifications.length > 0 ? (
                         notifications.map((notification) => (
                           <motion.div
@@ -448,7 +448,7 @@ const Navigation = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0 }}
-                            className={`p-4 border-b border-border last:border-b-0 hover:bg-muted/10 cursor-pointer ${
+                            className={`p-3 border-b border-border last:border-b-0 hover:bg-muted/10 cursor-pointer ${
                               notification.unread ? "bg-gold/5" : ""
                             }`}
                             onClick={() => markAsRead(notification.id)}
@@ -456,15 +456,15 @@ const Navigation = () => {
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center space-x-2 mb-1">
-                                  <h4 className="font-semibold text-sm">{notification.title}</h4>
+                                  <h4 className="font-semibold text-sm notification-title">{notification.title}</h4>
                                   {notification.unread && (
                                     <span className="h-2 w-2 rounded-full bg-gold"></span>
                                   )}
                                 </div>
-                                <p className="text-xs text-muted-foreground mb-2">
+                                <p className="text-xs text-muted-foreground mb-1 notification-message">
                                   {notification.message}
                                 </p>
-                                <p className="text-[10px] text-muted-foreground">
+                                <p className="text-[10px] text-muted-foreground notification-time">
                                   {formatTime(notification.timestamp)}
                                 </p>
                               </div>
@@ -472,14 +472,14 @@ const Navigation = () => {
                           </motion.div>
                         ))
                       ) : (
-                        <div className="p-8 text-center text-muted-foreground">
+                        <div className="p-6 text-center text-muted-foreground">
                           <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
                           <p className="text-sm">No notifications</p>
                         </div>
                       )}
                     </div>
-                    <div className="p-3 border-t border-border text-center">
-                      <Button variant="ghost" size="sm" className="text-xs">
+                    <div className="p-2 border-t border-border text-center">
+                      <Button variant="ghost" size="sm" className="text-xs h-8 px-2">
                         View All Notifications
                       </Button>
                     </div>

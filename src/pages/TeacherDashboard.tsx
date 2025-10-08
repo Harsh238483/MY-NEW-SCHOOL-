@@ -1604,7 +1604,7 @@ Student ID: ${studentId}`);
                       </div>
                     </div>
                   ) : (
-                    <div className="absolute right-0 top-full mt-2 w-80 bg-card border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-hidden">
+                    <div className="absolute right-0 top-full mt-2 w-[calc(100vw-4rem)] sm:w-80 teacher-notification-dropdown bg-card border border-border rounded-lg shadow-lg z-50 max-h-96 overflow-hidden">
                       <div className="p-4 border-b border-border">
                         <h3 className="font-semibold text-foreground">My Notifications & Replies</h3>
                       </div>
