@@ -94,7 +94,40 @@ const Hero = () => {
         body: "Inter"
       }
     }).then(data => {
-      setHomepageData(data);
+      setHomepageData({
+        heroTitle: data.heroTitle || "Royal Academy",
+        heroSubtitle: data.heroSubtitle || "Shaping tomorrow's leaders through excellence in education, character development, and innovative learning experiences.",
+        heroButtonPrimary: data.heroButtonPrimary || "Apply for Admission",
+        heroButtonSecondary: data.heroButtonSecondary || "Discover Our Legacy",
+        bannerImages: Array.isArray(data.bannerImages) ? data.bannerImages : [],
+        autoRotate: data.autoRotate !== undefined ? data.autoRotate : true,
+        rotationInterval: data.rotationInterval || 5,
+        stats: {
+          students: { 
+            number: data.stats?.students?.number || "2,500+", 
+            label: data.stats?.students?.label || "Students" 
+          },
+          programs: { 
+            number: data.stats?.programs?.number || "150+", 
+            label: data.stats?.programs?.label || "Programs" 
+          },
+          awards: { 
+            number: data.stats?.awards?.number || "25+", 
+            label: data.stats?.awards?.label || "Awards" 
+          }
+        },
+        colors: {
+          primary: data.colors?.primary || "#1e40af",
+          secondary: data.colors?.secondary || "#f59e0b",
+          accent: data.colors?.accent || "#10b981",
+          background: data.colors?.background || "#ffffff",
+          text: data.colors?.text || "#1f2937"
+        },
+        fonts: {
+          heading: data.fonts?.heading || "Inter",
+          body: data.fonts?.body || "Inter"
+        }
+      });
     });
   }, []);
 
@@ -116,7 +149,7 @@ const Hero = () => {
 
   // Auto-rotate banner images
   useEffect(() => {
-    if (homepageData.autoRotate && homepageData.bannerImages.length > 1) {
+    if (homepageData.autoRotate && homepageData.bannerImages && homepageData.bannerImages.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prev) => 
           (prev + 1) % homepageData.bannerImages.length
@@ -125,7 +158,7 @@ const Hero = () => {
 
       return () => clearInterval(interval);
     }
-  }, [homepageData.autoRotate, homepageData.rotationInterval, homepageData.bannerImages.length]);
+  }, [homepageData.autoRotate, homepageData.rotationInterval, homepageData.bannerImages]);
 
   const stats = [
     { icon: Users, value: homepageData.stats.students.number, label: homepageData.stats.students.label },
@@ -133,7 +166,7 @@ const Hero = () => {
     { icon: Award, value: homepageData.stats.awards.number, label: homepageData.stats.awards.label },
   ];
 
-  const currentBannerImage = homepageData.bannerImages.length > 0 
+  const currentBannerImage = homepageData.bannerImages && homepageData.bannerImages.length > 0 
     ? homepageData.bannerImages[currentImageIndex] 
     : brandingData.logoUrl || '/placeholder.svg';
 
