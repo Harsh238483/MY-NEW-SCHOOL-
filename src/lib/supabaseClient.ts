@@ -9,7 +9,8 @@ const _env = (import.meta as any).env ?? {};
 
 // User-provided public creds (anon key is safe for client usage)
 const FALLBACK_SUPABASE_URL = "https://uxnowmbrcrmutvqariei.supabase.co";
-const FALLBACK_SUPABASE_ANON_KEY = "";
+const FALLBACK_SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4bm93bWJyY3JtdXR2cWFyaWVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTU0MTcsImV4cCI6MjA3NTY5MTQxN30.irZXBHnYLi6P4QmF4o5eRPjblyZ6ugyxEDELuDBpk9w";
 
 export const supabaseUrl: string =
   _env.VITE_SUPABASE_URL ?? FALLBACK_SUPABASE_URL;
