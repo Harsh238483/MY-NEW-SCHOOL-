@@ -136,7 +136,33 @@ const HomepageEditor = () => {
   useEffect(() => {
     const savedData = localStorage.getItem('royal-academy-homepage');
     if (savedData) {
-      setHomepageData(JSON.parse(savedData));
+      const parsedData = JSON.parse(savedData);
+      setHomepageData({
+        ...homepageData,
+        ...parsedData,
+        stats: {
+          students: parsedData.stats?.students || homepageData.stats.students,
+          programs: parsedData.stats?.programs || homepageData.stats.programs,
+          awards: parsedData.stats?.awards || homepageData.stats.awards
+        },
+        values: {
+          excellence: parsedData.values?.excellence || homepageData.values.excellence,
+          innovation: parsedData.values?.innovation || homepageData.values.innovation,
+          vision: parsedData.values?.vision || homepageData.values.vision,
+          community: parsedData.values?.community || homepageData.values.community
+        },
+        colors: {
+          primary: parsedData.colors?.primary || homepageData.colors.primary,
+          secondary: parsedData.colors?.secondary || homepageData.colors.secondary,
+          accent: parsedData.colors?.accent || homepageData.colors.accent,
+          background: parsedData.colors?.background || homepageData.colors.background,
+          text: parsedData.colors?.text || homepageData.colors.text
+        },
+        fonts: {
+          heading: parsedData.fonts?.heading || homepageData.fonts.heading,
+          body: parsedData.fonts?.body || homepageData.fonts.body
+        }
+      });
     }
   }, []);
 

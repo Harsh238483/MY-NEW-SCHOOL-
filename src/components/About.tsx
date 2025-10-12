@@ -85,7 +85,36 @@ const About = () => {
         body: "Inter"
       }
     }).then(data => {
-      setHomepageData(data);
+      setHomepageData({
+        aboutTitle: data.aboutTitle || "About Royal Academy",
+        aboutSubtitle: data.aboutSubtitle || "Established in 1875, Royal Academy has been a beacon of educational excellence for over 148 years, nurturing minds and shaping the future of countless students.",
+        legacyTitle: data.legacyTitle || "Our Legacy",
+        legacyContent: data.legacyContent || "Founded by visionary educators, Royal Academy began as a small institution with big dreams. Today, we stand as one of the nation's premier educational establishments, combining time-honored traditions with innovative approaches to learning.\n\nOur commitment to excellence extends beyond academics. We believe in developing well-rounded individuals who are prepared to make meaningful contributions to society.",
+        missionTitle: data.missionTitle || "Our Mission",
+        missionContent: data.missionContent || "To provide exceptional education that empowers students to achieve their highest potential, fostering critical thinking, creativity, and moral leadership in a rapidly changing world.",
+        values: {
+          excellence: {
+            title: data.values?.excellence?.title || "Excellence",
+            description: data.values?.excellence?.description || "Committed to the highest standards in education and character development."
+          },
+          innovation: {
+            title: data.values?.innovation?.title || "Innovation",
+            description: data.values?.innovation?.description || "Embracing cutting-edge teaching methods and technological advancement."
+          },
+          vision: {
+            title: data.values?.vision?.title || "Vision",
+            description: data.values?.vision?.description || "Preparing students to become global leaders and responsible citizens."
+          },
+          community: {
+            title: data.values?.community?.title || "Community",
+            description: data.values?.community?.description || "Building strong bonds within our diverse and inclusive school family."
+          }
+        },
+        fonts: {
+          heading: data.fonts?.heading || "Inter",
+          body: data.fonts?.body || "Inter"
+        }
+      });
     }).catch(error => {
       console.error("Error loading About page data from Supabase:", error);
       // Fallback to initial state if Supabase data loading fails
