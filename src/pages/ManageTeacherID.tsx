@@ -70,7 +70,13 @@ const ManageTeacherID: React.FC = () => {
           lastLogin: teacher.lastLogin,
           loginAttempts: teacher.loginAttempts || 0
         }));
-        setTeachers(mappedTeachers);
+        
+        // Remove duplicates based on teacherId
+        const uniqueTeachers = mappedTeachers.filter((teacher: any, index: number, self: any[]) => 
+          index === self.findIndex((t: any) => t.teacherId === teacher.teacherId)
+        );
+        
+        setTeachers(uniqueTeachers);
         setIsLoading(false);
       } catch (error) {
         console.error('Error loading teacher IDs:', error);

@@ -134,11 +134,15 @@ const CreateTeacherID: React.FC = () => {
         teacherId: generatedCredentials.teacherId
       };
 
-      // Save to teachers list
+      // Save to teachers list - check for duplicates
       const existingTeachers = JSON.parse(localStorage.getItem('royal-academy-teachers') || '[]');
-      localStorage.setItem('royal-academy-teachers', JSON.stringify([...existingTeachers, newTeacher]));
+      const teacherExists = existingTeachers.some((t: any) => t.id === newTeacher.id || t.teacherId === newTeacher.teacherId);
+      
+      if (!teacherExists) {
+        localStorage.setItem('royal-academy-teachers', JSON.stringify([...existingTeachers, newTeacher]));
+      }
 
-      // Save to auth teachers
+      // Save to auth teachers - check for duplicates
       const authTeacher = {
         ...newTeacher,
         username: generatedCredentials.username,
@@ -146,7 +150,11 @@ const CreateTeacherID: React.FC = () => {
         type: 'teacher'
       };
       const existingAuthTeachers = JSON.parse(localStorage.getItem('royal-academy-auth-teachers') || '[]');
-      localStorage.setItem('royal-academy-auth-teachers', JSON.stringify([...existingAuthTeachers, authTeacher]));
+      const authTeacherExists = existingAuthTeachers.some((t: any) => t.id === authTeacher.id || t.teacherId === authTeacher.teacherId);
+      
+      if (!authTeacherExists) {
+        localStorage.setItem('royal-academy-auth-teachers', JSON.stringify([...existingAuthTeachers, authTeacher]));
+      }
 
       setIsCreated(true);
       toast.success('Teacher account created successfully!');
